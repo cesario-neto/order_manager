@@ -9,3 +9,6 @@ class Product(models.Model):
                             blank=False, verbose_name='Nome')
     price = models.DecimalField(max_digits=5, decimal_places=2, null=False,
                                 blank=False, verbose_name='Preço')
+
+    def __str__(self) -> str:
+        return self.name
