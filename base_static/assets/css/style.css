@@ -1,0 +1,134 @@
+:root {
+    --header-color: #5A98DB;
+    --primary-color: #86C8DB;
+    --secondary-color: #85DBD3;
+    --tertiary-color: #000000;
+    --warning-color: #DB2114;
+    
+}
+
+* {
+    padding: 0;
+    margin: 0;
+}
+
+html, body {
+    height: 100%;
+}
+
+.none_decoration {
+    text-decoration: none;
+    color: var(--tertiary-color);
+    list-style: none;
+    border: none;
+}
+
+.nav-bar {
+    background-color: var(--header-color);
+    padding: 3rem;
+    text-align: center;
+}
+
+.nav-bar > a {
+    font-size: 2rem;
+
+    font-weight: bold;
+    letter-spacing: 2px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.container {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+}
+
+.main-content {
+    width: 80%;
+    text-align: center;
+    margin: auto;
+}
+
+.btn {
+    border: 1px solid var(--tertiary-color);
+    box-shadow: 1px 1px 2px;
+    margin: 1rem 0rem;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    font-size: 1.2rem;
+    font-weight: bold;
+    padding: 1px;
+}
+
+.btn-warning {
+    background-color: var(--warning-color);
+    font-size: 1.2rem;
+    font-weight: bold;
+    padding: 1px;
+}
+
+.btn:active {
+    box-shadow: 1px 1px 2px inset;
+}
+
+.main-content__link {
+    margin: auto;
+    width: 50%;
+    padding: 1rem 0rem;
+    margin-top: 1rem;
+    background-color: var(--primary-color);
+}
+
+.card {
+    border: 1px solid var(--tertiary-color);
+    box-shadow: 1px 1px 2px var(--tertiary-color);
+    margin: 2rem 0rem;
+}
+
+.card__title {
+    background-color: var(--primary-color);
+    padding: 1rem 0rem;
+}
+
+.card__content {
+    background-color: var(--secondary-color);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    font-size: 1.3rem;
+    padding: 1rem 0px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding: 2rem 0rem;
+    text-align: center;
+
+}
+
+.form-group__input {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    margin: auto;
+}
+
+.form-group > button {
+    width: 20%;
+    margin: auto;
+}
+
+.container__table {
+    padding: 2rem 0rem;
+    border-collapse: collapse;
+}
+
+.container__table td, .container__table th {
+    border: 1px solid var(--tertiary-color);
+    padding: 0.4rem 0.3rem;
+}
