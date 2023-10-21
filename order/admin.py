@@ -10,5 +10,6 @@ class ProductOrderAdmin(admin.ModelAdmin):
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
-    list_display = 'client', 'total_value', 'status',
+    list_display = ('client', 'total_value', 'status',
+                    'created_at', 'updated_at',)
     search_fields = 'client',
