@@ -19,6 +19,13 @@ def create_order(request):
     return redirect('order:index')
 
 
+def delete_order(request, id):
+    order = Order.objects.get(pk=id)
+    order.delete()
+
+    return redirect('order:index')
+
+
 def order_edit(request, id):
     order = Order.objects.get(pk=id)
     form = OrderForms(instance=order)
