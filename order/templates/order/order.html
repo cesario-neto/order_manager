@@ -5,17 +5,15 @@
     <main>
         <div class="container">
             <section class="main-content">
-                <form action="" class="form-group">
+                <form action="{% url "order:order" order.id %}" method="post" class="form-group">
+                    {% csrf_token %}
                     <div class="form-group__input">
-                        <label for="client">Cliente</label>
-                        <input type="text" name="client">
+                        {{ form.client.label }}
+                        {{ form.client }}
                     </div>
                     <div class="form-group__input">
-                        <label for="status">Status</label>
-                        <select name="status" id="">
-                            <option value="pendente">Pendente</option>
-                            <option value="concluido">Concluido</option>
-                        </select>
+                        {{ form.status.label }}
+                        {{ form.status }}
                     </div>
                     <button type="submit" class="btn btn-primary">Salvar</button>
                 </form>
@@ -26,21 +24,13 @@
                             <th>Produto</th>
                             <th>Quantidade</th>
                         </tr>
+                        {% for product in order_products %}
                         <tr>
-                            <td>Frango (Asa)</td>
-                            <td>5</td>
+                            <td>{{ product.product.name }}</td>
+                            <td>{{ product.quantity }}</td>
                             <td><a href="" class="none_decoration btn btn-warning">Deletar</a></td>
                         </tr>
-                        <tr>
-                            <td>Frango (Peito)</td>
-                            <td>2</td>
-                            <td><a href="" class="none_decoration btn btn-warning">Deletar</a></td>
-                        </tr>
-                        <tr>
-                            <td>Gado</td>
-                            <td>3</td>
-                            <td><a href="" class="none_decoration btn btn-warning">Deletar</a></td>
-                        </tr>
+                        {% endfor %}
                     </table>
                 </div>
                 <div>
