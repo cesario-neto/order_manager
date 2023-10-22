@@ -34,7 +34,7 @@
                     </table>
                 </div>
                 <div>
-                    <a href="add_product.html"><button class="btn btn-primary">Adicionar Produto</button></a>
+                    <a href="{% url "order:add_product" order.id %}"><button class="btn btn-primary">Adicionar Produto</button></a>
                 </div>
             </section>
         </div>
