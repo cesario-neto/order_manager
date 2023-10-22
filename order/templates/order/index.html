@@ -4,13 +4,13 @@
     <main>
         <div class="container">
             <div class="main-content">
-                <a href="#"><button class="none_decoration main-content__link btn">Criar Pedido</button></a>
+                <a href="{% url "order:create_order" %}"><button class="none_decoration main-content__link btn">Criar Pedido</button></a>
             </div>
-            <section class="main-content">
+            <section class="main-content flex-reverse">
                 {% for order in orders %}
                 <div class="card">
                     <div class="card__title">
-                        <h2><a href="order.html" class="none_decoration">{{ order.client }}</a></h2>
+                        <h2><a href="{% url "order:order" order.id%}" class="none_decoration">{{ order.client }}</a></h2>
                     </div>
                     <div class="card__content">
 
