@@ -48,6 +48,9 @@ html, body {
     width: 80%;
     text-align: center;
     margin: auto;
+}
+
+.flex-reverse {
     display: flex;
     flex-direction: column-reverse;
 }
