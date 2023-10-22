@@ -22,8 +22,8 @@ class Order(models.Model):
         verbose_name = 'Pedido'
 
     choices = (
-        ['Pendente', 'pendente'],
-        ['Finalizado', 'finalizado']
+        ['pendente', 'Pendente'],
+        ['finalizado', 'Finalizado']
     )
 
     client = models.CharField(
