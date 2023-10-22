@@ -22,6 +22,10 @@
 
                         <p>Valor Total: R${{ order.total_value }}</p>
                         <p>Criado em {{ order.created_at }}</p>
+                        <form action="{% url "order:delete_order" order.id %}" method="post">
+                            {% csrf_token %}
+                            <button class="btn btn-warning">Excluir Pedido</button>
+                        </form>
                     </div>
                 </div>
                 {% endfor %}
