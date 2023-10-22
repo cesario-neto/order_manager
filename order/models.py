@@ -49,7 +49,11 @@ def set_default_value(sender, *args, **kwargs):
     if not instance.client:
         instance.client = 'Sem nome'
     price = 0
-    for obj in instance.products.all():
-        price += (obj.product.price * obj.quantity)
+    try:
+        if instance.products:
+            for obj in instance.products.all():
+                price += (obj.product.price * obj.quantity)
+    except ValueError:
+        pass
 
     instance.total_value = price
