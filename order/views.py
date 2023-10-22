@@ -1,7 +1,7 @@
 from datetime import date
 from django.shortcuts import render, redirect
 from .models import Order, ProductOrder
-from .forms import OrderForms
+from .forms import OrderForms, ProductForms
 
 
 def index(request):
@@ -40,3 +40,23 @@ def order_edit(request, id):
     }
 
     return render(request, 'order/order.html', context)
+
+
+def add_product(request, id):
+    order = Order.objects.get(pk=id)
+    form = ProductForms()
+
+    if request.method == 'POST':
+        form = ProductForms(request.POST)
+        if form.is_valid():
+            product = form.save(commit=False)
+            product.save()
+            order.products.add(product)
+            order.save()
+
+    context = {
+        'order': order,
+        'form': form
+    }
+
+    return render(request, 'order/add_product.html', context)
