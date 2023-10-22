@@ -12,21 +12,9 @@
                             {{ field }}        
                         </div>
                     {% endfor %}
-
-
-                    <!--<div class="form-group__input">
-                        <label for="status">Produto</label>
-                        <select name="status" id="">
-                            <option value="pendente">Frango</option>
-                            <option value="concluido">Carne</option>
-                        </select> 
-                    </div>
-                    <div class="form-group__input">
-                        <label for="client">Quantidade</label>
-                        <input min="1" type="number" name="client">
-                    </div> -->
                     <button type="submit" class="btn btn-primary">Salvar</button>
                 </form>
+                <a href="{% url "order:order" order.id %}"><button type="submit" class="btn btn-warning">Voltar</button></a>
             </section>
         </div>
     </main>
