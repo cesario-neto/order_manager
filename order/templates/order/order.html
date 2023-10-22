@@ -28,7 +28,7 @@
                         <tr>
                             <td>{{ product.product.name }}</td>
                             <td>{{ product.quantity }}</td>
-                            <td><a href="" class="none_decoration btn btn-warning">Deletar</a></td>
+                            <td><a href="{% url "order:delete_product" product.id %}" class="none_decoration btn btn-warning">Deletar</a></td>
                         </tr>
                         {% endfor %}
                     </table>

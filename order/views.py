@@ -60,3 +60,12 @@ def add_product(request, id):
     }
 
     return render(request, 'order/add_product.html', context)
+
+
+def delete_product(request, id):
+    product = ProductOrder.objects.get(pk=id)
+    order = Order.objects.get(products=product)
+    product.delete()
+    order.save()
+
+    return redirect('order:order', id=order.id)
