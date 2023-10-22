@@ -7,46 +7,24 @@
                 <a href="#"><button class="none_decoration main-content__link btn">Criar Pedido</button></a>
             </div>
             <section class="main-content">
+                {% for order in orders %}
                 <div class="card">
                     <div class="card__title">
-                        <h2><a href="order.html" class="none_decoration">Pedido de cesario</a></h2>
+                        <h2><a href="order.html" class="none_decoration">{{ order.client }}</a></h2>
                     </div>
                     <div class="card__content">
-                        <p>status: Pendente</p>
-                        <p>Valor Total: R$55,00</p>
-                        <p>Criado às 20:30</p>
+
+                        {% if order.status.lower == "pendente" %}
+                            <p style="color: red;">Status: {{ order.status }}</p>
+                        {% elif order.status.lower == "finalizado" %}
+                            <p style="color: green;">Status: {{ order.status }}</p>
+                        {% endif %}
+
+                        <p>Valor Total: R${{ order.total_value }}</p>
+                        <p>Criado em {{ order.created_at }}</p>
                     </div>
                 </div>
-                <div class="card">
-                    <div class="card__title">
-                        <h2><a href="order.html" class="none_decoration">Pedido de cesario</a></h2>
-                    </div>
-                    <div class="card__content">
-                        <p>status: Pendente</p>
-                        <p>Valor Total: R$55,00</p>
-                        <p>Criado às 20:30</p>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card__title">
-                        <h2><a href="order.html" class="none_decoration">Pedido de cesario</a></h2>
-                    </div>
-                    <div class="card__content">
-                        <p>status: Pendente</p>
-                        <p>Valor Total: R$55,00</p>
-                        <p>Criado às 20:30</p>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card__title">
-                        <h2><a href="order.html" class="none_decoration">Pedido de cesario</a></h2>
-                    </div>
-                    <div class="card__content">
-                        <p>status: Pendente</p>
-                        <p>Valor Total: R$55,00</p>
-                        <p>Criado às 20:30</p>
-                    </div>
-                </div>
+                {% endfor %}
             </section>
         </div>
     </main>
