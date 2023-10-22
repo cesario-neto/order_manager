@@ -48,6 +48,8 @@ html, body {
     width: 80%;
     text-align: center;
     margin: auto;
+    display: flex;
+    flex-direction: column-reverse;
 }
 
 .btn {
