@@ -1,7 +1,8 @@
 from django.db import models
+from core.models import BaseModel
 
 
-class Product(models.Model):
+class Product(BaseModel):
     class Meta:
         verbose_name = 'Produto'
 

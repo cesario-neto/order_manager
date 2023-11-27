@@ -2,9 +2,10 @@ from django.db import models
 from product.models import Product
 from django.dispatch import receiver
 from django.db.models.signals import pre_save
+from core.models import BaseModel
 
 
-class ProductOrder(models.Model):
+class ProductOrder(BaseModel):
     class Meta:
         verbose_name = 'Produtos do Pedido'
 
@@ -17,7 +18,7 @@ class ProductOrder(models.Model):
         return self.product.name
 
 
-class Order(models.Model):
+class Order(BaseModel):
     class Meta:
         verbose_name = 'Pedido'
 
