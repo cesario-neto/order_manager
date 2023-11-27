@@ -39,7 +39,7 @@
                                 {% csrf_token %}
                                 <button class="btn btn-danger">Deletar</button>
                             </form>
-                            <form action="" method="post" class="col-6 text-start">
+                            <form action="{% url "checkout" order.id %}" method="post" class="col-6 text-start">
                                 {% csrf_token %}
                                 <button type="submit" class="btn btn-success">Finalizar</button>
                             </form>

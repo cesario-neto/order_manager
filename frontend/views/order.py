@@ -10,6 +10,13 @@ def create_order(request):
     return redirect('index')
 
 
+def checkout(request, order_id):
+    order = Order.objects.get(id=order_id)
+    order.status = 'finalizado'
+    order.save()
+    return redirect('index')
+
+
 def delete_order(request, id):
     order = Order.objects.get(pk=id)
     order.delete()
