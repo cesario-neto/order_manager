@@ -4,26 +4,17 @@ from order.models import Order, ProductOrder
 from order.forms import OrderForms, ProductForms
 
 
-def index(request):
-
-    context = {
-        'orders': Order.objects.filter(created_at__gte=date.today()),
-    }
-
-    return render(request, 'order/index.html', context)
-
-
 def create_order(request):
     Order.objects.create()
 
-    return redirect('order:index')
+    return redirect('index')
 
 
 def delete_order(request, id):
     order = Order.objects.get(pk=id)
     order.delete()
 
-    return redirect('order:index')
+    return redirect('index')
 
 
 def order_edit(request, id):
@@ -75,4 +66,4 @@ def delete_product(request, id):
     product.delete()
     order.save()
 
-    return redirect('order:order', id=order.id)
+    return redirect('order', id=order.id)

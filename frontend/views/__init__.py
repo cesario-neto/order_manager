@@ -1,2 +1,3 @@
-from .order_views import *
-from .product_views import *
+from .dashboard import *
+from .order import *
+from .product import *
