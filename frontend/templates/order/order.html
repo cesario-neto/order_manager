@@ -1,42 +1,42 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
+    <div class="container text-dark mt-2 mb-2 pt-3 border bg-light text-center">
+        <form action="{% url "order" order.id %}" method="post" class="w-50 m-auto pt-3 pb-5">
+            {% csrf_token %}
+            <label for="" class="form-label">{{ form.client.label }}</label>
+            {{ form.client}}
+            <div class="pt-3 pb-3"></div>
 
-    <main>
-        <div class="container">
-            <section class="main-content">
-                <form action="{% url "order:order" order.id %}" method="post" class="form-group">
-                    {% csrf_token %}
-                    <div class="form-group__input">
-                        {{ form.client.label }}
-                        {{ form.client }}
-                    </div>
-                    <div class="form-group__input">
-                        {{ form.status.label }}
-                        {{ form.status }}
-                    </div>
-                    <button type="submit" class="btn btn-primary">Salvar</button>
-                </form>
-                <div class="container">
-                    <h1>Produtos:</h1>
-                    <table class="main-content container__table table content">
+            <label for="" class="form-label">{{ form.status.label }}</label>
+            {{ form.status }}
+            <div class="pt-3 pb-3"></div>
+            <button type="submit" class="btn btn-success">Salvar</button>
+        </form>
+
+        <h2>Produtos</h2>
+        <a href="{% url "add_product" order.id %}" class="btn btn-primary mb-3 mt-3">Adicionar produtos</a>
+        <div class="container mb-3">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Preço</th>
+                        <th>Quantidade</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for product in order_products %}
                         <tr>
-                            <th>Produto</th>
-                            <th>Quantidade</th>
+                            <th>{{ product.product.name}}</th>
+                            <th>{{ product.product.price}}</th>
+                            <th>{{ product.quantity}}</th>
                         </tr>
-                        {% for product in order_products %}
-                        <tr>
-                            <td>{{ product.product.name }}</td>
-                            <td>{{ product.quantity }}</td>
-                            <td><a href="{% url "order:delete_product" product.id %}" class="none_decoration btn btn-warning">Deletar</a></td>
-                        </tr>
-                        {% endfor %}
-                    </table>
-                </div>
-                <div>
-                    <a href="{% url "order:add_product" order.id %}"><button class="btn btn-primary">Adicionar Produto</button></a>
-                </div>
-            </section>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <h3>Total: R${{ order.total_value }}</h3>
         </div>
-    </main>
+
+    </div>
 {% endblock content %}

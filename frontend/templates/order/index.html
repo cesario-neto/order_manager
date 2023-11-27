@@ -1,35 +1,80 @@
 {% extends "base.html" %}
-{% load static %}
 {% block content %}
-    <main>
-        <div class="container">
-            <div class="main-content">
-                <a href="{% url "order:create_order" %}"><button class="none_decoration main-content__link btn">Criar Pedido</button></a>
-            </div>
-            <section class="main-content flex-reverse">
-                {% for order in orders %}
-                <div class="card">
-                    <div class="card__title">
-                        <h2><a href="{% url "order:order" order.id%}" class="none_decoration">{{ order.client }}</a></h2>
-                    </div>
-                    <div class="card__content">
+    
+    <div class="container text-dark mt-2 pt-3 border bg-light">
+        <div>
+            <form class="input-group w-50 m-auto" role="search" action="" method="">
+                <input class="form-control form-control-lg" type="search" placeholder="Buscar por referência"
+                    aria-label="Search" name="search">
+                <button class="input-group-text" type="submit">
+                    <i class="bi bi-search"></i>
+                </button>
+            </form>
+        </div>
+        <div class="text-center pt-4 pb-4">
+            <button class="btn btn-primary"><a href="{% url "create_order" %}" class="nav-link text-dark">Criar Pedido</a></button>
+        </div>
 
-                        {% if order.status.lower == "pendente" %}
-                            <p style="color: red;">Status: {{ order.status }}</p>
-                        {% elif order.status.lower == "finalizado" %}
-                            <p style="color: green;">Status: {{ order.status }}</p>
-                        {% endif %}
+        <!-- Cards content -->
 
-                        <p>Valor Total: R${{ order.total_value }}</p>
-                        <p>Criado em {{ order.created_at }}</p>
-                        <form action="{% url "order:delete_order" order.id %}" method="post">
-                            {% csrf_token %}
-                            <button class="btn btn-warning">Excluir Pedido</button>
-                        </form>
+        <div class="row justify-content-start gx-4">
+
+            {% for order in orders %}
+                <div class="col-12 col-lg-4">
+                    <div class="card m-3 text-center">
+                        <div class="card-header">
+                            <h4><a href="{% url "order" order.id %}" class="link-body-emphasis link-underline-opacity-0">{{ order.client }}</a></h4>
+                        </div>
+                        <div class="card-text mt-3">
+                            <h5>R${{ order.total_value }}</h1>
+                            {% if order.status == "pendente" %}
+                                <p>Status: <span class="text-danger">{{ order.status }}</span></p>
+                            {% else %}
+                                <p>Status: <span class="text-success"> {{ order.status }} </span></p>
+                            {% endif %}
+                        </div>
+
+                        <div class="row mb-3">
+                            <form action="{% url "delete_order" order.id %}" method="post" class=" col-6 text-end">
+                                {% csrf_token %}
+                                <button class="btn btn-danger">Deletar</button>
+                            </form>
+                            <form action="" method="post" class="col-6 text-start">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-success">Finalizar</button>
+                            </form>
+                        </div>
+                        <div class="card-footer">
+                            Pedido feito em {{ order.created_at }}
+                        </div>
                     </div>
                 </div>
-                {% endfor %}
-            </section>
+            {% endfor %}
+
+
+            <!-- Pagination -->
+            <nav class="mt-2 mb-5">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item">
+                        <a class="page-link" href="#" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item">
+                        <a class="page-link" href="#" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+
         </div>
-    </main>
+    </div>
+
+
+
+
 {% endblock content %}

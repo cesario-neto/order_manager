@@ -1,21 +1,49 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
-    <main>
-        <div class="container">
-            <section class="main-content">
-                <form action="{% url "order:add_product" order.id %}" method="post" class="form-group">
-                    {% csrf_token %}
-                    {% for field in form %}
-                        <div class="form-group__input">
-                            {{ field.label }}        
-                            {{ field }}        
-                        </div>
+    <div class="container text-dark mt-2 mb-2 pt-3 border bg-light text-center">
+        <h2>{{ order.client }}</h2>
+
+        <form action="" method="post" class="w-50 m-auto">
+            {% csrf_token %}
+            <label for="product" class="form-label">{{ form.product.label }}</label>
+            {{ form.product }}
+            <div class="pt-3 pb-3"></div>
+
+            <label for="quantity">{{ form.quantity.label }}</label>
+            {{ form.quantity }}
+
+            <div class="pt-3 pb-3"></div>
+
+            <button type="submit" class="btn btn-success">Adicionar</button>
+
+            <div class="pt-3 pb-3"></div>
+        </form>
+
+        <h3>Produtos</h3>
+        <div class="pt-3 pb-3"></div>
+        <div class="container mb-3">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Quantidade</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for product in order.products.all %}
+                    <tr>
+                        <th>{{ product.product.name }}</th>
+                        <th>{{ product.quantity }}</th>
+                        <th><a href="" class="btn btn-success w-100 h-100">+</a></th>
+                        <th><a href="" class="btn btn-danger w-100 h-100">-</a></th>
+                    </tr>
                     {% endfor %}
-                    <button type="submit" class="btn btn-primary">Salvar</button>
-                </form>
-                <a href="{% url "order:order" order.id %}"><button type="submit" class="btn btn-warning">Voltar</button></a>
-            </section>
+                </tbody>
+            </table>
         </div>
-    </main>
+
+        <a href="{% url "order" order.id %}" class="btn btn-primary mb-3 mt-3">Voltar</a>
+
+    </div>
 {% endblock content %}
