@@ -1,7 +1,6 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from order.models import Order, ProductOrder
 from order.forms import OrderForms, ProductForms
-from django.db import connection
 
 
 def create_order(request):
@@ -11,21 +10,22 @@ def create_order(request):
 
 
 def checkout(request, order_id):
-    order = Order.objects.get(id=order_id)
+    order = get_object_or_404(Order, id=order_id)
     order.status = 'finalizado'
     order.save()
     return redirect('index')
 
 
 def delete_order(request, id):
-    order = Order.objects.get(pk=id)
+    order = get_object_or_404(Order, pk=id)
     order.delete()
 
     return redirect('index')
 
 
 def order_edit(request, id):
-    order = Order.objects.prefetch_related('products').get(pk=id)
+    order = get_object_or_404(
+        Order.objects.prefetch_related('products').all(), pk=id)
     form = OrderForms(instance=order)
 
     if request.method == 'POST':
@@ -48,7 +48,8 @@ def order_edit(request, id):
 
 
 def add_product(request, id):
-    order = Order.objects.prefetch_related('products').get(pk=id)
+    order = get_object_or_404(
+        Order.objects.prefetch_related('products').all(), pk=id)
     products = order.products.select_related('product').all()
 
     if request.method == 'POST':
@@ -71,8 +72,8 @@ def add_product(request, id):
 
 
 def decrease_quantity(request, order_id, product_id):
-    order = Order.objects.get(pk=order_id)
-    product = ProductOrder.objects.get(pk=product_id)
+    order = get_object_or_404(Order, pk=order_id)
+    product = get_object_or_404(ProductOrder, pk=product_id)
     product.quantity -= 1
     product.save()
     if product.quantity <= 0:
@@ -83,8 +84,8 @@ def decrease_quantity(request, order_id, product_id):
 
 
 def increase_quantity(request, order_id, product_id):
-    order = Order.objects.get(pk=order_id)
-    product = ProductOrder.objects.get(pk=product_id)
+    order = get_object_or_404(Order, pk=order_id)
+    product = get_object_or_404(ProductOrder, pk=product_id)
     product.quantity += 1
     product.save()
     order.save()
