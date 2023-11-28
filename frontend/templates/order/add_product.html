@@ -31,7 +31,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for product in order.products.all %}
+                    {% for product in products %}
                     <tr>
                         <th>{{ product.product.name }}</th>
                         <th>{{ product.quantity }}</th>

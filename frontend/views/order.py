@@ -1,7 +1,7 @@
-from datetime import date
 from django.shortcuts import render, redirect
 from order.models import Order, ProductOrder
 from order.forms import OrderForms, ProductForms
+from django.db import connection
 
 
 def create_order(request):
@@ -25,7 +25,7 @@ def delete_order(request, id):
 
 
 def order_edit(request, id):
-    order = Order.objects.get(pk=id)
+    order = Order.objects.prefetch_related('products').get(pk=id)
     form = OrderForms(instance=order)
 
     if request.method == 'POST':
@@ -34,7 +34,7 @@ def order_edit(request, id):
             form.save()
 
     try:
-        order_products = order.products.all()
+        order_products = order.products.select_related('product').all()
     except ValueError:
         pass
 
@@ -48,7 +48,8 @@ def order_edit(request, id):
 
 
 def add_product(request, id):
-    order = Order.objects.get(pk=id)
+    order = Order.objects.prefetch_related('products').get(pk=id)
+    products = order.products.select_related('product').all()
     form = ProductForms()
 
     if request.method == 'POST':
@@ -61,6 +62,7 @@ def add_product(request, id):
 
     context = {
         'order': order,
+        'products': products,
         'form': form
     }
 
