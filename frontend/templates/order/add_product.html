@@ -35,8 +35,8 @@
                     <tr>
                         <th>{{ product.product.name }}</th>
                         <th>{{ product.quantity }}</th>
-                        <th><a href="" class="btn btn-success w-100 h-100">+</a></th>
-                        <th><a href="" class="btn btn-danger w-100 h-100">-</a></th>
+                        <th><a href="{% url "increase_quantity" order.id product.id %}" class="btn btn-success w-100 h-100">+</a></th>
+                        <th><a href="{% url "decrease_quantity" order.id product.id %}" class="btn btn-danger w-100 h-100">-</a></th>
                     </tr>
                     {% endfor %}
                 </tbody>

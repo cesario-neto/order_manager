@@ -50,7 +50,6 @@ def order_edit(request, id):
 def add_product(request, id):
     order = Order.objects.prefetch_related('products').get(pk=id)
     products = order.products.select_related('product').all()
-    form = ProductForms()
 
     if request.method == 'POST':
         form = ProductForms(request.POST)
@@ -59,6 +58,8 @@ def add_product(request, id):
             product.save()
             order.products.add(product)
             order.save()
+
+    form = ProductForms()
 
     context = {
         'order': order,
@@ -69,10 +70,23 @@ def add_product(request, id):
     return render(request, 'order/add_product.html', context)
 
 
-def delete_product(request, id):
-    product = ProductOrder.objects.get(pk=id)
-    order = Order.objects.get(products=product)
-    product.delete()
+def decrease_quantity(request, order_id, product_id):
+    order = Order.objects.get(pk=order_id)
+    product = ProductOrder.objects.get(pk=product_id)
+    product.quantity -= 1
+    product.save()
+    if product.quantity <= 0:
+        product.delete()
     order.save()
 
-    return redirect('order', id=order.id)
+    return redirect('add_product', id=order_id)
+
+
+def increase_quantity(request, order_id, product_id):
+    order = Order.objects.get(pk=order_id)
+    product = ProductOrder.objects.get(pk=product_id)
+    product.quantity += 1
+    product.save()
+    order.save()
+
+    return redirect('add_product', id=order_id)
