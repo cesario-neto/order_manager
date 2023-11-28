@@ -3,9 +3,9 @@
     
     <div class="container text-dark mt-2 pt-3 border bg-light">
         <div>
-            <form class="input-group w-50 m-auto" role="search" action="" method="">
+            <form class="input-group w-50 m-auto" role="search" action="{% url "search" %}" method="get">
                 <input class="form-control form-control-lg" type="search" placeholder="Buscar por referência"
-                    aria-label="Search" name="search">
+                    aria-label="Search" name="search" value="{{ search }}">
                 <button class="input-group-text" type="submit">
                     <i class="bi bi-search"></i>
                 </button>
@@ -56,11 +56,23 @@
                 <ul class="pagination justify-content-center">
                     {% if page_obj.has_previous %}
                         <li class="page-item">
-                            <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
-                                <span aria-hidden="true">&laquo;</span>
-                            </a>
+                            {% if search %}
+                                <a class="page-link" href="?page={{ page_obj.previous_page_number }}&search={{ search }}" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            {% else %}
+                                <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            {% endif %}
                         </li>
-                        <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">{{ page_obj.previous_page_number }}</a></li>
+                        <li class="page-item">
+                            {% if search %}
+                                <a class="page-link" href="?page={{ page_obj.previous_page_number }}&search={{ search }}">{{ page_obj.previous_page_number }}</a>
+                            {% else %}
+                                <a class="page-link" href="?page={{ page_obj.previous_page_number }}">{{ page_obj.previous_page_number }}</a>
+                            {% endif %}
+                        </li>
                     {% else %}
                     <li class="page-item disabled">
                         <a class="page-link " href="#" aria-label="Previous">
@@ -70,11 +82,23 @@
                     {% endif %}
                     <li class="page-item"><a class="page-link active" href="#">{{ page_obj.number }}</a></li>
                     {% if page_obj.has_next %}
-                        <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">{{ page_obj.next_page_number }}</a></li>
                         <li class="page-item">
-                            <a class="page-link" href="?page={{ page_obj.next_page_number }}"aria-label="Next">
-                                <span aria-hidden="true">&raquo;</span>
-                            </a>
+                            {% if search %}
+                                <a class="page-link" href="?page={{ page_obj.next_page_number }}&search={{ search }}">{{ page_obj.next_page_number }}</a>
+                            {% else %}
+                                <a class="page-link" href="?page={{ page_obj.next_page_number }}">{{ page_obj.next_page_number }}</a>
+                            {% endif %}
+                        </li>
+                        <li class="page-item">
+                            {% if search %}
+                                <a class="page-link" href="?page={{ page_obj.next_page_number }}&search={{ search }}"aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            {% else %}
+                                <a class="page-link" href="?page={{ page_obj.next_page_number }}"aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            {% endif %}
                         </li>
                     {% else %}
                     <li class="page-item disabled">

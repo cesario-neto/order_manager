@@ -17,3 +17,23 @@ def index(request):
     }
 
     return render(request, 'order/index.html', context)
+
+
+def search(request):
+    search = request.GET.get('search', '')
+    print(search)
+
+    orders = Order.objects.filter(client__icontains=search).order_by(
+        '-created_at').order_by('-status')
+    paginator = Paginator(orders, 9)
+
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    context = {
+        'orders': orders,
+        'page_obj': page_obj,
+        'search': search
+    }
+
+    return render(request, 'order/index.html', context)
